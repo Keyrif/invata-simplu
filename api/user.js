@@ -1,9 +1,8 @@
 const { MongoClient } = require('mongodb');
 
-const uri = process.env.REACT_APP_MONGO_URI
 
 
-const client = new MongoClient(uri);
+const client = new MongoClient(process.env.REACT_APP_MONGO_URI);
 
 
 module.exports = async (req, res) => {

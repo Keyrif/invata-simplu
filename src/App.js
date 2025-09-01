@@ -754,8 +754,8 @@ export default function App() {
 
       {}
       {message && (
-        <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-50 p-4 rounded-xl shadow-2xl backdrop-blur-md transition-opacity duration-300 animate-fade-in ${isDarkMode ? 'bg-white/10 text-white' : 'bg-gray-800/20 text-gray-900'}`}>
-          <p className="font-semibold">{message}</p>
+        <div className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 p-4 rounded-xl shadow-2xl backdrop-blur-md transition-opacity duration-300 animate-fade-in ${isDarkMode ? 'bg-white/10 text-white' : 'bg-gray-800/20 text-gray-900'}`}>
+          <p className="font-semibold text-center">{message}</p>
         </div>
       )}
 
