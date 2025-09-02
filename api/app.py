@@ -16,7 +16,7 @@ try:
     client = MongoClient(mongo_uri, tls=True, tlsAllowInvalidCertificates=True)
     db = client.buyfromromania
     users_collection = db.users
-    print("Connected to MongoDB successfully!")
+    print("Connected to MongoDB!")
 except Exception as e:
     print(f"Error connecting to MongoDB: {e}")
     exit(1)
@@ -24,10 +24,6 @@ except Exception as e:
 
 @app.route('/api/user', methods=['POST'])
 def handle_user_actions():
-    """
-    Handles all user-related actions (register, login, buyPremium, changePassword)
-    from a single POST endpoint.
-    """
     try:
         data = request.get_json()
         action = data.get('action')
@@ -58,7 +54,6 @@ def handle_user_actions():
         return jsonify({"message": "Internal server error."}), 500
 
 def register_user(username, password):
-    """Handles user registration."""
     existing_user = users_collection.find_one({'username': username})
     if existing_user:
         return jsonify({"message": "User with this username already exists."}), 409
@@ -74,7 +69,6 @@ def register_user(username, password):
     return jsonify({"message": "User registered successfully!"}), 201
 
 def login_user(username, password):
-    """Handles user login."""
     user = users_collection.find_one({'username': username})
     if not user or user['password'] != password:
         return jsonify({"message": "Invalid credentials. User not found or incorrect password."}), 401
@@ -86,7 +80,6 @@ def login_user(username, password):
     }), 200
 
 def buy_premium(username):
-    """Handles the purchase of a premium subscription."""
     user = users_collection.find_one({'username': username})
     if not user:
         return jsonify({"message": "User not found."}), 404
@@ -98,7 +91,6 @@ def buy_premium(username):
     return jsonify({"message": "Premium activated successfully!", "hasPremium": True}), 200
 
 def change_password(username, current_password, new_password):
-    """Handles password changes."""
     user = users_collection.find_one({'username': username})
     
     if not user or user['password'] != current_password:
