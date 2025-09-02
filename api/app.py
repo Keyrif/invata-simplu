@@ -13,7 +13,7 @@ try:
     if not mongo_uri:
         raise ValueError("MongoDB key environment variable not set.")
         
-    client = MongoClient(mongo_uri)
+    client = MongoClient(mongo_uri, tls=True, tlsAllowInvalidCertificates=True)
     db = client.buyfromromania
     users_collection = db.users
     print("Connected to MongoDB successfully!")
