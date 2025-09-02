@@ -250,24 +250,25 @@ export default function App() {
         }),
       });
 
-      if (response.ok) {
-        if (view === 'login') {
-          const data = await response.json();
-          setCurrentUser(normalizedUsername);
-          setHasPremium(data.hasPremium);
-          setView('loggedIn');
-          localStorage.setItem('currentUser', normalizedUsername);
-          localStorage.setItem('hasPremium', data.hasPremium);
-          setMessage('Autentificare reușită!');
-        } else {
-          setMessage('Înregistrare reușită! Vă puteți autentifica acum.');
-          setView('login');
-        }
-      } else {
+      if (!response.ok) {
+        const errorData = await response.json();
         setIsShakeAnimating(true);
         setTimeout(() => setIsShakeAnimating(false), 1000);
-        const errorData = await response.json();
-        setMessage(`Eroare: ${errorData.error || 'A apărut o eroare necunoscută.'}`);
+        setMessage(errorData.message || 'A apărut o eroare necunoscută.');
+        return; 
+      }
+
+      const data = await response.json();
+      if (view === 'login') {
+        setCurrentUser(normalizedUsername);
+        setHasPremium(data.hasPremium);
+        setView('loggedIn');
+        localStorage.setItem('currentUser', normalizedUsername);
+        localStorage.setItem('hasPremium', data.hasPremium);
+        setMessage('Autentificare reușită!');
+      } else {
+        setMessage('Înregistrare reușită! Vă puteți autentifica acum.');
+        setView('login');
       }
     } catch (error) {
       console.error('Error:', error);
