@@ -184,7 +184,7 @@ export default function App() {
     }
   });
 
-  const apiEndpoint = '/api/user';
+  const apiEndpoint = 'http://localhost:5000/api/user';
 
   useEffect(() => {
     const storedUser = localStorage.getItem('currentUser');
