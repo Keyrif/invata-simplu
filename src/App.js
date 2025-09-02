@@ -184,7 +184,7 @@ export default function App() {
     }
   });
 
-  const apiEndpoint = 'http://localhost:5000/api/user';
+  const apiEndpoint = 'https://invatasimplu.vercel.app/api/user';
 
   useEffect(() => {
     const storedUser = localStorage.getItem('currentUser');
